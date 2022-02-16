@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% load static %}
+
+        <h1>My Recipes</h1>
+
+        {% if recipe %}
+        <div class="items-container">
+            {% for dish in recipe %}
+            <div class="item">
+                <h2>{{ dish.title }}</h2>
+                <img class="detail-img" src="{{ dish.image_url }}" alt="{{ dish.description |truncatewords:10 }}">
+                <div class="recipe-info">
+                    {{ dish.description}}
+                </div>
+                <div class="buttons-container">
+                    <a class="button detail" href="{% url 'recipe details' dish.id %}">Details</a>
+                    <a class="button edit" href="{% url 'edit recipe' dish.id %}">Edit</a>
+                    <a class="button delete" href="{%  url 'delete recipe' dish.id %}">Delete</a>
+                </div>
+            </div>
+            {% endfor %}
+            {% else %}
+            <h2>There are no recipes.</h2>
+            {% endif %}
+
+        </div>
+{% endblock %}
